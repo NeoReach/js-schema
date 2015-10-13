@@ -714,6 +714,9 @@ var ObjectSchema = module.exports = Schema.patterns.ObjectSchema = Schema.extend
 
         // Simple string properties
         Object.keys(this.stringProps).forEach(function(key) {
+            if(instance[key] === undefined){
+                delete instance[key];
+            }
             if (key in instance) {
                 if (error = self.stringProps[key].value.errors(instance[key])) {
                     errors[key] = error
@@ -773,6 +776,9 @@ var ObjectSchema = module.exports = Schema.patterns.ObjectSchema = Schema.extend
 
         // Simple string properties
         var stringPropsValid = Object.keys(this.stringProps).every(function(key) {
+            if(instance[key] === undefined){
+                delete instance[key];
+            }
             if (key in instance) {
                 return self.stringProps[key].value.validate(instance[key])
             } else {
